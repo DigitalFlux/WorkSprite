@@ -1,0 +1,39 @@
+{
+  "name": "worksprite",
+  "version": "0.0.1",
+  "description": "A handy little sprite of a menu with some CLI functionality.",
+  "main": "./src/main.html",
+  "single-instance": true,
+  "chromium-args": "--disable-devtools --enable-node-worker --mixed-context --remote-debugging-port=9222 ./src/ --user-data-dir=cache --crash-dumps-dir=cache --disable-gpu-compositing --force-cpu-draw --enable-transparent-visuals",
+  "window": {
+    "icon": "worksprite.ico",
+    "frame": false,
+    "always_on_top": true,
+    "transparent": true,
+    "fullscreen": false,
+    "resizable": false,
+    "focus": true,
+    "width": 1920,
+    "height": 1080,
+    "show_in_taskbar": true
+  },
+  "scripts": {
+    "start": "nw.exe --remote-debugging-port=9222 ./src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DigitalFlux/WorkSprite.git"
+  },
+  "author": "Ted Southard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DigitalFlux/WorkSprite/issues"
+  },
+  "homepage": "https://github.com/DigitalFlux/WorkSprite#readme",
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "node-powershell": "^5.0.1",
+    "vue": "^3.2.39",
+    "windows-shortcuts": "^0.1.6"
+  }
+}

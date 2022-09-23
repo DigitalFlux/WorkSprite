@@ -1,0 +1,9 @@
+type: seq
+open chrome.exe --window-position=10,10 --window-size=600,200
+wait 2000
+echo step 2
+echo step 3
+wait 5000
+echo step 4
+wait 1000
+echo end

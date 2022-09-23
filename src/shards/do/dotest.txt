@@ -1,0 +1,7 @@
+type: seq
+echo 1) this is something to test
+echo 2) this is the second thing
+echo 3) now we're going to empty the recycle bin
+iferr echo ah crap - 1
+echo 5) and now we're done
+iferr echo oh noesss!

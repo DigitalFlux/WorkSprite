@@ -1,0 +1,46 @@
+# Created by https://www.toptal.com/developers/gitignore/api/nwjs
+# Edit at https://www.toptal.com/developers/gitignore?templates=nwjs
+
+### NWjs ###
+# gitignore template for NW.js projects
+# website: https://nwjs.io/
+
+# Seen in standard and sdk versions
+.vscode/
+node_modules/
+credits.html
+cache/
+locales/
+libEGL.dll
+libGLEv2.dll
+libGLESv2.dll
+swiftshader/libGLESv2.dll
+node.dll
+nw.dll
+nw.exe
+natives_blob.bin
+notification_helper.exe
+nw_100_percent.pak
+nw_200_percent.pak
+nw_elf.dll
+snapshot_blob.bin
+resources.pak
+vk_swiftshader.dll
+vk_swiftshader_icd.json
+vulkan-1.dll
+v8_context_snapshot.bin
+debug.log
+
+# Seen only in standard
+d3dcompiler_47.dll
+ffmpeg.dll
+icudtl.dat
+
+# Seen only in sdk
+pnacl/
+chromedriver.exe
+nacl_irt_x86_64.nexe
+nwjc.exe
+payload.exe
+
+# End of https://www.toptal.com/developers/gitignore/api/nwjs

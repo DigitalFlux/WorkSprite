@@ -1,0 +1,72 @@
+{
+	"name": "WorkSprite",
+	"configVersion": 0,
+	"coreOptions": {
+		"reloadShortcut": "Ctrl+Alt+R",
+		"quitShortcut": "Ctrl+Alt+Q"
+	},
+	"shardOptions": {
+		"shardPath": "src/shards",
+		"do": {
+			"doPath": "shards/do",
+			"noopList": [
+				"::",
+				"//",
+				"/*",
+				"*",
+				"*/"
+			]
+		},
+		"searchEngineCodes": {
+			"default": "sp",
+			"g": "https://www.google.com/search?&q=",
+			"ggl": "https://www.google.com/search?&q=",
+			"google": "https://www.google.com/search?&q=",
+			"s": "https://www.startpage.com/do/dsearch?query=",
+			"sp": "https://www.startpage.com/do/dsearch?query=",
+			"startpage": "https://www.startpage.com/do/dsearch?query=",
+			"d": "https://duckduckgo.com/?q=",
+			"ddg": "https://duckduckgo.com/?q=",
+			"duckduckgo": "https://duckduckgo.com/?q=",
+			"y": "https://you.com/search?q=",
+			"u": "https://you.com/search?q=",
+			"you": "https://you.com/search?q="
+		}
+	},
+	"guiOptions": {
+		"mainGUIXOffset": 0,
+		"mainGUIYOffset": 0,
+		"shortcut": "Alt+`",
+		"components": {
+			"im-button": {
+				"addOnLoad": false,
+				"src": "./gui/imButton"
+			},
+			"im-menu": {
+				"addOnLoad": true,
+				"src": "./gui/immenu",
+				"layout": {
+					"centerButton": {
+						"buttonPos": "left: 183px; top: 250px;"
+					},
+					"menuButtons": [
+						{ "id": "imMenuBtn0", "buttonPos": "left: 123px; top: 250px;" },
+						{ "id": "imMenuBtn1", "buttonPos": "left: 143px; top: 210px;" },
+						{ "id": "imMenuBtn2", "buttonPos": "left: 183px; top: 190px;" },
+						{ "id": "imMenuBtn3", "buttonPos": "left: 223px; top: 210px;" },
+						{ "id": "imMenuBtn4", "buttonPos": "left: 243px; top: 250px;" },
+						{ "id": "imMenuBtn5", "buttonPos": "left: 73px; top: 250px;" },
+						{ "id": "imMenuBtn6", "buttonPos": "left: 81px; top: 208px;" },
+						{ "id": "imMenuBtn7", "buttonPos": "left: 105px; top: 172px;" },
+						{ "id": "imMenuBtn8", "buttonPos": "left: 142px; top: 148px;" },
+						{ "id": "imMenuBtn9", "buttonPos": "left: 183px; top: 140px;" },
+						{ "id": "imMenuBtn10", "buttonPos": "left: 224px; top: 148px;" },
+						{ "id": "imMenuBtn11", "buttonPos": "left: 261px; top: 172px;" },
+						{ "id": "imMenuBtn12", "buttonPos": "left: 285px; top: 208px;" },
+						{ "id": "imMenuBtn13", "buttonPos": "left: 293px; top: 250px;" }
+					]
+				}
+			}
+		}
+	}
+}

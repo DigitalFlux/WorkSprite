@@ -1,0 +1,11 @@
+type: pick1
+echo picked 0
+echo picked 1
+echo picked 2
+echo picked 3
+echo picked 4
+echo picked 5
+echo picked 6
+echo picked 7
+echo picked 8
+echo picked 9
