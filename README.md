@@ -1,8 +1,8 @@
-<h1 align="center"><b><span style='color:#2672A2;'>Work</span><span style='color:#E86D00;'>Sprite</span></b></h1>
----------------------------
-https://img.shields.io/github/issues/DigitalFlux/WorkSprite
+<h1 align="center"><b>WorkSprite</b></h1>
 
----------------------------
+![GitHub issues](https://img.shields.io/github/issues/DigitalFlux/WorkSprite) ![GitHub](https://img.shields.io/github/license/DigitalFlux/WorkSprite)
+
+
 ## What's it for?
 
 WorkSprite is an NWJS-based app that groups commonly-used links and functionality into a small, extensible, quick-access menu system.
