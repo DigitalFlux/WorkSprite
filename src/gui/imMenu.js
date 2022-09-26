@@ -17,7 +17,7 @@ module.exports = {
         iconClicked: false,
         isPinned: false,
         menuVisible: true,
-        menuButtons: null
+        currentMenuButtons: {}
       }
     },
     styles: [
@@ -41,9 +41,14 @@ module.exports = {
     ],
     methods: {
       Initialize() {
-        console.log("init");
         this.RegisterShortcut();
         this.layout = nw.WorkSprite.config.guiOptions.components['im-menu'].layout;
+
+        if(this.layout.detectMenuButtonShortcuts) {
+          this.GetMenuButtonsByDetect();
+        } else {
+          this.GetMenuButtonsFromConfig();
+        }
       },
       RegisterShortcut() {
         if(nw.WorkSprite.config.guiOptions.shortcut) {
@@ -59,6 +64,61 @@ module.exports = {
             });
             nw.App.registerGlobalHotKey(this.toggleShortcut);
         }
+      },
+      GetMenuButtonsByDetect() {
+        let dirobjs = nw.WorkSprite.lib['fs'].readdirSync(nw.WorkSprite.config.guiOptions.components['im-menu'].iconPath, { withFileTypes: true });
+        let temp = {};
+        let btnIdx = 0;
+        let args, name, ext;
+
+        // We're looping through and trying to find both a png and a lnk for each shortcut, named the same.
+        // If we only find a shortcut, the default WorkSprite icon is used.
+        // For those shortcuts found, we will assign them button properties from the config file on first-come-first-served.
+        // If you want to specify which button goes where, set the detectMenuButtonShortcuts flag to false in the config and
+        // set up the buttons manually in order to guarantee your layout.
+        for (let f = 0; f < dirobjs.length; f++) {
+          if(dirobjs[f].isFile()) {
+            args = dirobjs[f].name.split('.');
+            name = args[0].toLowerCase();
+            ext = args.at(-1);
+
+            if(!temp[name]) {
+              temp[name] = {
+                title: name,
+                icon: '',
+                shortcut: ''
+              }
+            }
+            if(ext === "lnk") {
+              temp[name].shortcut = name;
+            } else if(ext === "png") {
+              temp[name].icon = name;
+            }
+          }
+        }
+
+        for(let t in temp) {
+          if(temp[t].shortcut !== '') {
+            this.currentMenuButtons[t] = temp[t];
+            this.currentMenuButtons[t].id = this.layout.menuButtons[btnIdx].id;
+            this.currentMenuButtons[t].buttonPos = this.layout.menuButtons[btnIdx].buttonPos;
+            this.currentMenuButtons[t].buttonTitle = this.layout.menuButtons[btnIdx].title || t;
+            if(temp[t].icon === '') {
+              this.currentMenuButtons[t].icon = nw.WorkSprite.config.guiOptions.components['im-menu'].defaultIcon;
+            }
+            btnIdx++;
+          }
+        }
+    },
+      GetMenuButtonsFromConfig() {
+          // For manual layouts coming from the config.
+          // If you want to have the app load the shortcuts automagically, then set detectMenuButtonShortcuts to true
+          // and then kick back and let it assign shortcuts to buttons.
+          for(let b in this.layout.menuButtons) {
+            if(this.layout.menuButtons[b].shortcut) {
+              this.currentMenuButtons.push(this.layout.menuButtons[b]);
+            }
+          }
       },
       ShowMenu() {
         console.log("ShowMenu");
@@ -118,14 +178,25 @@ module.exports = {
       EnterBase() {
         clearTimeout(this.leaveHideTimer);
         this.leaveHideTimer = null;
+      },
+      GetButtonIconURL(button) {
+        let url = "";
+        if(button.icon && button.icon !== undefined) {
+          url = `./gui/shortcuts/${button.icon}.png`;
+        }
+        return url;
+      },
+      ClickHandler: (shortcut) => {
+        let path = nw.WorkSprite.lib['path'].join(nw.WorkSprite.config.guiOptions.components['im-menu'].iconPath, shortcut);
+        nw.WorkSprite.lib['open'](path);
       }
     },
     template: `
     <div id='immediateMenu' class='imMenuBase' v-show='menuVisible' :onload='Initialize' >
       <div id='imCenterBase' class='imCenterHoverBase' :onmouseleave="LeaveBase" :onmouseenter="EnterBase">
-        <im-button :button-pos="layout.centerButton.buttonPos" button-title="LALALA" ></im-button>
-        <template v-for="b in layout.menuButtons">
-          <im-button :button-id="b.id" :button-title="b.id" :button-pos="b.buttonPos"></im-button>
+        <im-center-button :button-id="layout.centerButton.id" :button-pos="layout.centerButton.buttonPos" :icon-image="GetButtonIconURL(layout.centerButton)" :button-title="WorkSprite" @click="ToggleMenu" ></im-center-button>
+        <template v-for="b in currentMenuButtons">
+          <im-button :button-id="b.id" :button-title="b.title" :button-pos="b.buttonPos" :icon-image="GetButtonIconURL(b)" :button-link="b.shortcut" @click='ClickHandler(b.shortcut)'></im-button>
         </template>
       </div>
     </div>

@@ -33,6 +33,7 @@
   "dependencies": {
     "chokidar": "^3.5.3",
     "node-powershell": "^5.0.1",
+    "open": "^8.4.0",
     "vue": "^3.2.39",
     "windows-shortcuts": "^0.1.6"
   }

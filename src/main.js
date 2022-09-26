@@ -81,6 +81,7 @@ class WorkSprite {
         this.LoadLib('child_process');
         this.LoadLib('os');
         this.LoadLib('chokidar');
+        this.LoadLib('open');
         this.LoadLib('windows-shortcuts');
         this.LoadLib('node-powershell');
         this.LoadLib('./libs/customActions', 'customActions');

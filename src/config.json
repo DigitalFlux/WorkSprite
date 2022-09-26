@@ -38,6 +38,10 @@
 		"mainGUIYOffset": 0,
 		"shortcut": "Alt+`",
 		"components": {
+			"im-center-button": {
+				"addOnLoad": false,
+				"src": "./gui/imCenterButton"
+			},
 			"im-button": {
 				"addOnLoad": false,
 				"src": "./gui/imButton"
@@ -45,25 +49,31 @@
 			"im-menu": {
 				"addOnLoad": true,
 				"src": "./gui/immenu",
+				"iconPath": "./src/gui/shortcuts",
+				"defaultIcon": "worksprite",
 				"layout": {
 					"centerButton": {
-						"buttonPos": "left: 183px; top: 250px;"
+						"id": "imCenterButton",
+						"buttonPos": "left: 168px; top: 140px; width: 50px; height: 50px;",
+						"icon": "worksprite"
 					},
+					"detectMenuButtonShortcuts": true,
 					"menuButtons": [
-						{ "id": "imMenuBtn0", "buttonPos": "left: 123px; top: 250px;" },
-						{ "id": "imMenuBtn1", "buttonPos": "left: 143px; top: 210px;" },
-						{ "id": "imMenuBtn2", "buttonPos": "left: 183px; top: 190px;" },
-						{ "id": "imMenuBtn3", "buttonPos": "left: 223px; top: 210px;" },
-						{ "id": "imMenuBtn4", "buttonPos": "left: 243px; top: 250px;" },
-						{ "id": "imMenuBtn5", "buttonPos": "left: 73px; top: 250px;" },
-						{ "id": "imMenuBtn6", "buttonPos": "left: 81px; top: 208px;" },
-						{ "id": "imMenuBtn7", "buttonPos": "left: 105px; top: 172px;" },
-						{ "id": "imMenuBtn8", "buttonPos": "left: 142px; top: 148px;" },
-						{ "id": "imMenuBtn9", "buttonPos": "left: 183px; top: 140px;" },
-						{ "id": "imMenuBtn10", "buttonPos": "left: 224px; top: 148px;" },
-						{ "id": "imMenuBtn11", "buttonPos": "left: 261px; top: 172px;" },
-						{ "id": "imMenuBtn12", "buttonPos": "left: 285px; top: 208px;" },
-						{ "id": "imMenuBtn13", "buttonPos": "left: 293px; top: 250px;" }
+						{ "id": "imMenuBtn0", "buttonPos": "left: 122px; top: 150px;", "shortcut": "worksprite" },
+						{ "id": "imMenuBtn1", "buttonPos": "left: 136px; top: 108px;" },
+						{ "id": "imMenuBtn2", "buttonPos": "left: 178px; top: 90px;" },
+						{ "id": "imMenuBtn3", "buttonPos": "left: 220px; top: 108px;" },
+						{ "id": "imMenuBtn4", "buttonPos": "left: 234px; top: 150px;" },
+
+						{ "id": "imMenuBtn5", "buttonPos": "left: 65px; top: 150px;" },
+						{ "id": "imMenuBtn6", "buttonPos": "left: 75px; top: 107px;" },
+						{ "id": "imMenuBtn7", "buttonPos": "left: 98px; top: 69px;" },
+						{ "id": "imMenuBtn8", "buttonPos": "left: 135px; top: 45px;" },
+						{ "id": "imMenuBtn9", "buttonPos": "left: 178px; top: 34px;" },
+						{ "id": "imMenuBtn10", "buttonPos": "left: 221px; top: 45px;" },
+						{ "id": "imMenuBtn11", "buttonPos": "left: 258px; top: 69px;" },
+						{ "id": "imMenuBtn12", "buttonPos": "left: 281px; top: 107px;" },
+						{ "id": "imMenuBtn13", "buttonPos": "left: 291px; top: 150px;" }
 					]
 				}
 			}

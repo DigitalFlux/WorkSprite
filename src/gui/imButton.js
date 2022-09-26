@@ -22,7 +22,7 @@ module.exports = {
         type: String
       },
       iconImage: {
-        default: '',
+        default: 'worksprite.png',
         type: String
       }
     },
@@ -49,19 +49,22 @@ module.exports = {
         top: 5px;
         background-repeat: no-repeat;
         background-size: contain;
-        background-position: center;
+        background-position: center; 
       }`
     ],
     data() {
-      return { 
-        clickHandler: () => {
-          nw.WorkSprite.guiComponents.immediateMenu.MenuButtonClicked(this.buttonLink);
+      return {}
+    },
+    methods: {
+      backgroundImage(image) {
+        return { 
+          'background-image': `url('${image}')`
         }
       }
     },
     template: `
-    <div :id='buttonId' class='imMenuSCOuter' :style='buttonPos' @click='clickHandler' :title='buttonTitle'>
-      <div :id='iconId' class='imMenuSCInner' ></div>
+    <div :id='buttonId' class='imMenuSCOuter' :style='buttonPos' :title='buttonTitle'>
+      <div :id='iconId' class='imMenuSCInner' :style='backgroundImage(iconImage)' ></div>
     </div>`
 }
   
