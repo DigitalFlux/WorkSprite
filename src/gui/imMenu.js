@@ -17,6 +17,7 @@ module.exports = {
         iconClicked: false,
         isPinned: false,
         menuVisible: true,
+        drawComponent: true,
         currentMenuButtons: {}
       }
     },
@@ -45,6 +46,7 @@ module.exports = {
         this.layout = nw.WorkSprite.config.guiOptions.components['im-menu'].layout;
 
         if(this.layout.detectMenuButtonShortcuts) {
+          this.SetShortcutWatch();
           this.GetMenuButtonsByDetect();
         } else {
           this.GetMenuButtonsFromConfig();
@@ -65,11 +67,22 @@ module.exports = {
             nw.App.registerGlobalHotKey(this.toggleShortcut);
         }
       },
+      SetShortcutWatch() {
+        nw.WorkSprite.lib['customActions'].exec('watchfolder', [nw.WorkSprite.config.guiOptions.components['im-menu'].iconPath, (path) => {
+          var cmp = this;
+          cmp.drawComponent = false;
+          this.GetMenuButtonsByDetect();
+          Vue.nextTick(() => {
+            cmp.drawComponent = true; ;
+          });
+        }]);
+      },
       GetMenuButtonsByDetect() {
         let dirobjs = nw.WorkSprite.lib['fs'].readdirSync(nw.WorkSprite.config.guiOptions.components['im-menu'].iconPath, { withFileTypes: true });
         let temp = {};
         let btnIdx = 0;
         let args, name, ext;
+        this.currentMenuButtons = {};
 
         // We're looping through and trying to find both a png and a lnk for each shortcut, named the same.
         // If we only find a shortcut, the default WorkSprite icon is used.
@@ -97,8 +110,9 @@ module.exports = {
           }
         }
 
+        let tempCount = 0;
         for(let t in temp) {
-          if(temp[t].shortcut !== '') {
+          if(temp[t].shortcut !== '' && tempCount < this.layout.menuButtons.length) {
             this.currentMenuButtons[t] = temp[t];
             this.currentMenuButtons[t].id = this.layout.menuButtons[btnIdx].id;
             this.currentMenuButtons[t].buttonPos = this.layout.menuButtons[btnIdx].buttonPos;
@@ -107,9 +121,10 @@ module.exports = {
               this.currentMenuButtons[t].icon = nw.WorkSprite.config.guiOptions.components['im-menu'].defaultIcon;
             }
             btnIdx++;
+            tempCount++;
           }
         }
-    },
+      },
       GetMenuButtonsFromConfig() {
           // For manual layouts coming from the config.
           // If you want to have the app load the shortcuts automagically, then set detectMenuButtonShortcuts to true
@@ -121,14 +136,11 @@ module.exports = {
           }
       },
       ShowMenu() {
-        console.log("ShowMenu");
         nw.WorkSprite.lib['customActions'].exec('getMousePos', [(result) => {
             this.curX = result[0] - 223;
             this.curY = result[1] - 120;
-            console.log("SHOW");
             this.iconClicked = false;
             this.menuVisible = true;
-          //  this.imCenterMenu.focus();
         }]);
       },
       HideMenu() {
@@ -188,13 +200,14 @@ module.exports = {
       },
       ClickHandler: (shortcut) => {
         let path = nw.WorkSprite.lib['path'].join(nw.WorkSprite.config.guiOptions.components['im-menu'].iconPath, shortcut);
+        this.iconClicked = true;
         nw.WorkSprite.lib['open'](path);
       }
     },
     template: `
-    <div id='immediateMenu' class='imMenuBase' v-show='menuVisible' :onload='Initialize' >
+    <div v-if="drawComponent" id='immediateMenu' class='imMenuBase' v-show='menuVisible' :onload='Initialize' >
       <div id='imCenterBase' class='imCenterHoverBase' :onmouseleave="LeaveBase" :onmouseenter="EnterBase">
-        <im-center-button :button-id="layout.centerButton.id" :button-pos="layout.centerButton.buttonPos" :icon-image="GetButtonIconURL(layout.centerButton)" :button-title="WorkSprite" @click="ToggleMenu" ></im-center-button>
+        <im-center-button :button-id="layout.centerButton.id" :button-pos="layout.centerButton.buttonPos" :icon-image="GetButtonIconURL(layout.centerButton)" button-title="WorkSprite" @click="ToggleMenu" ></im-center-button>
         <template v-for="b in currentMenuButtons">
           <im-button :button-id="b.id" :button-title="b.title" :button-pos="b.buttonPos" :icon-image="GetButtonIconURL(b)" :button-link="b.shortcut" @click='ClickHandler(b.shortcut)'></im-button>
         </template>

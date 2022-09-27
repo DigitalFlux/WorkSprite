@@ -105,7 +105,6 @@ exports.bundledActions = [
 					case 'pick1': // randomly pick 1 from list and execute
 						let rl = nw.WorkSprite.lib['customActions'].exec('randinrange', [1, lines.length]);
 						lineArgs = lines[rl].split(" ");
-						console.log("doing", lineArgs[0], ":", lineArgs.slice(0));
 						nw.WorkSprite.lib['customActions'].exec('setResponse', nw.WorkSprite.lib['customActions'].exec(lineArgs[0], lineArgs.slice(1)));
 						break;
 				}
@@ -117,7 +116,6 @@ exports.bundledActions = [
 		argNames: ["string"],
 		doc: "open shortcut|workspace|exe|url in default app",
 		action: (args) => {
-			console.log("opening", args);
 			let name = args[0]?.trim();
 			try {
 				nw.WorkSprite.lib['open'](name);
@@ -130,6 +128,28 @@ exports.bundledActions = [
 		name: ["cmd", "cmdaction"],
 		action: () => {
 			nw.WorkSprite.lib['child_process'].spawn(process.env.comspec, ['/k'], { cwd: '%SystemRoot%\\system32\\', shell: true, windowsHide: false, detached: true });
+		}
+	},
+	{
+		name: ["watchfolder", "folderwatch"],
+		argNames: ["string", "function"],
+		doc: "Watchfolder/folderwatch: <br>Watches a path, and executes callback upon changes in that path.<br>Args: <string> pathname, <function> callback",
+		action: (args) => {
+			if(args[0] && args[1] && typeof args[1] === "function") {
+				const opts = {
+					persistent: true,
+					ignoreInitial: false,
+					usePolling: true,
+					interval: 100,
+					binaryInterval: 300
+				};
+
+				const watcher = nw.WorkSprite.lib['chokidar'].watch(args[0], opts);
+
+				watcher.on('all', path => { setTimeout(() => { args[1](path); }, 1500); });
+			} else {
+				return `One or both arguments for watching are incorrect.`;
+			}
 		}
 	},
 	{
