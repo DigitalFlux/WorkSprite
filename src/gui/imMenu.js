@@ -68,7 +68,7 @@ module.exports = {
         }
       },
       SetShortcutWatch() {
-        nw.WorkSprite.lib['customActions'].exec('watchfolder', [nw.WorkSprite.config.guiOptions.components['im-menu'].iconPath, (path) => {
+        nw.WorkSprite.lib['customActions'].exec('watchfolder', [nw.WorkSprite.config.guiOptions.components['im-menu'].iconPath, ['add', 'change', 'unlink'], (path) => {
           var cmp = this;
           cmp.drawComponent = false;
           this.GetMenuButtonsByDetect();

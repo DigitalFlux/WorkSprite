@@ -135,10 +135,10 @@ exports.bundledActions = [
 		argNames: ["string", "function"],
 		doc: "Watchfolder/folderwatch: <br>Watches a path, and executes callback upon changes in that path.<br>Args: <string> pathname, <function> callback",
 		action: (args) => {
-			if(args[0] && args[1] && typeof args[1] === "function") {
+			if(args[0] && args[2] && typeof args[2] === "function") {
 				const opts = {
 					persistent: true,
-					ignoreInitial: false,
+					ignoreInitial: true,
 					usePolling: true,
 					interval: 100,
 					binaryInterval: 300
@@ -146,7 +146,9 @@ exports.bundledActions = [
 
 				const watcher = nw.WorkSprite.lib['chokidar'].watch(args[0], opts);
 
-				watcher.on('all', path => { setTimeout(() => { args[1](path); }, 1500); });
+				for(let evt in args[1]) {
+					watcher.on(args[1][evt], (path, event) => { setTimeout(() => { args[2](path, event); }, 1500); });
+				}
 			} else {
 				return `One or both arguments for watching are incorrect.`;
 			}

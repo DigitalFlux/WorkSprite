@@ -23,7 +23,7 @@ class WorkSprite {
         // Load
         this.LoadCoreLibs();
         this.LoadConfig();
-        this.LoadShards();
+        this.InitShards();
 
         // Main window and flags
         this.mainWin = nw.Window.get();
@@ -88,11 +88,21 @@ class WorkSprite {
     }
 
     // Custom action code shards
-    LoadShard(dirObj) {
-        if (dirObj.isFile() && dirObj.name.endsWith(".js")) {
-            console.log(`%cLoading shard: ${dirObj.name}`, `color: #4936D8`);
-            this.lib['customActions'].addBundle(require(this.lib['path'].join(this.basePath, this.config.shardOptions.shardPath, dirObj.name)).bundledActions);
-        }
+    InitShards() {
+        this.LoadShards();
+
+        nw.WorkSprite.lib['customActions'].exec('watchfolder', [this.config.shardOptions.shardPath, ['add'], (path, event) => {
+            if(path.split('.')[1] === 'js') {
+                this.LoadShard(path.split('\\').at(-1));
+            } else {
+                console.warn("Unable to load file:", path);
+            }
+        }]);
+    }
+
+    LoadShard(name) {
+        console.log(`%cLoading shard: ${name}`, `color: #4936D8`);
+        this.lib['customActions'].addBundle(require(this.lib['path'].join(this.basePath, this.config.shardOptions.shardPath, name)).bundledActions);
     }
 
     LoadShards() {
@@ -101,7 +111,9 @@ class WorkSprite {
         let dirobjs = this.lib['fs'].readdirSync(this.config.shardOptions.shardPath, { withFileTypes: true });
         // Iterate through and require each shard, then pump the bundle into the customActions object
         for (let f = 0; f < dirobjs.length; f++) {
-            this.LoadShard(dirobjs[f]);
+            if (dirobjs[f].isFile() && dirobjs[f].name.endsWith(".js")) {
+                this.LoadShard(dirobjs[f].name);
+            }
         }
         console.log(' ');
     }

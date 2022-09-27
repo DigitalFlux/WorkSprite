@@ -8,7 +8,7 @@
 	"shardOptions": {
 		"shardPath": "src/shards",
 		"do": {
-			"doPath": "shards/do",
+			"doPath": "src/do",
 			"noopList": [
 				"::",
 				"//",
