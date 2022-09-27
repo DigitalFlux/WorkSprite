@@ -46,9 +46,13 @@ class ActionPack {
     }
     // Adds a bundle of actions
     addBundle(actions = []) {
-        for (let a = 0; a < actions.length; a++) {
-            this.addAction(actions[a]);
-        }
+        if(actions.length > 0) {
+            for (let a = 0; a < actions.length; a++) {
+                this.addAction(actions[a]);
+            }
+            return true;
+        } 
+        return false;
     }
     // Helper function to determine if args passed are asking for help
     isAskingForHelp(args = []) {

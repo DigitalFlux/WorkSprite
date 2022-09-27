@@ -102,7 +102,15 @@ class WorkSprite {
 
     LoadShard(name) {
         console.log(`%cLoading shard: ${name}`, `color: #4936D8`);
-        this.lib['customActions'].addBundle(require(this.lib['path'].join(this.basePath, this.config.shardOptions.shardPath, name)).bundledActions);
+        let success = this.lib['customActions'].addBundle(require(this.lib['path'].join(this.basePath, this.config.shardOptions.shardPath, name)).bundledActions);
+        if(!success) {
+			const ndg = new Notification('Shard Error', { 
+				body: `Unable to load shard: ${name}.`,
+				silent: true,
+				requireInteraction: false
+			});
+			setTimeout(() => { ndg.close(); }, 5000);
+        }
     }
 
     LoadShards() {
