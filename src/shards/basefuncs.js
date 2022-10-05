@@ -4,7 +4,7 @@ exports.bundledActions = [
 		argNames: ["int", "float", "bool"],
 		doc: "testaction1:<br>This is an action for just testing stuff. Here, everything is true and nothing is forbidden...",
 		action: () => {
-			console.log("testaction");
+			console.log("You have tested an action!");
 		}
 	},
 	{
@@ -260,9 +260,7 @@ exports.bundledActions = [
 				$a = [WinUtils]::GetForegroundWindow()
 				get-process | ? { $_.mainwindowhandle -eq $a }
 			`;
-			ps.invoke(cmd).then(output => {
-				console.log("done", output.raw);
-			}).catch(err => {
+			ps.invoke(cmd).then(output => {}).catch(err => {
 				console.error(`getForegroundApp Error: ${err}`);
 			});
 		}
@@ -288,9 +286,7 @@ exports.bundledActions = [
 				# Restore window
 				[Win32.NativeMethods]::ShowWindowAsync($hwnd, 9)
 			`;
-			ps.invoke(cmd).then(output => {
-				console.log("done",output.raw);
-			}).catch(err => {
+			ps.invoke(cmd).then(output => {}).catch(err => {
 				console.error(`setAppToForeground Error: ${err}`);
 			});
 		}

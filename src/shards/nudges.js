@@ -22,7 +22,6 @@ exports.bundledActions = [
 			let banner = args.slice(focusArg + 1).join(" ") || "";
 
 			window.setTimeout(() => {
-				console.log("show nm!");
 				nw.WorkSprite.lib['customActions'].exec('plainNotification', [
 					'Attention:',
 					banner,

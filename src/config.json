@@ -46,6 +46,10 @@
 				"addOnLoad": false,
 				"src": "./gui/imButton"
 			},
+			"im-cmd-palette": {
+				"addOnLoad": false,
+				"src": "./gui/imCmdPalette"
+			},
 			"im-menu": {
 				"addOnLoad": true,
 				"src": "./gui/immenu",

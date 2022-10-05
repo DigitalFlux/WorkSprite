@@ -138,8 +138,7 @@ class WorkSprite {
     }
 
     InitVUE() {
-        nw.WorkSprite.vueApp = Vue.createApp({});
-        nw.WorkSprite.vueApp.mount('#mainBody');
+        nw.WorkSprite.vueApp = Vue.createApp({}).mount('#mainBody');
     }
 
     LoadGUIComponent(componentName, win) {

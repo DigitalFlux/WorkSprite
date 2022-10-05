@@ -21,25 +21,6 @@ module.exports = {
         currentMenuButtons: {}
       }
     },
-    styles: [
-      `.imMenuBase {
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        top: 446px; 
-        left: 710px;
-        display: block;
-      }`,
-      `.imCenterHoverBase {
-        position: absolute;
-        top: -89px;
-        left: -25px;        
-        width: 401px;
-        height: 401px;
-        border-radius: 50% 50% 5% 5% ;
-        background-color: hsla(272, 16%, 18%, 0.05);
-      }`
-    ],
     methods: {
       Initialize() {
         this.RegisterShortcut();
@@ -204,6 +185,25 @@ module.exports = {
         nw.WorkSprite.lib['open'](path);
       }
     },
+    styles: [
+      `.imMenuBase {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        top: 446px; 
+        left: 710px;
+        display: block;
+      }`,
+      `.imCenterHoverBase {
+        position: absolute;
+        top: -89px;
+        left: -25px;        
+        width: 401px;
+        height: 401px;
+        border-radius: 50% 50% 5% 5% ;
+        background-color: hsla(272, 16%, 18%, 0.05);
+      }`
+    ],
     template: `
     <div v-if="drawComponent" id='immediateMenu' class='imMenuBase' v-show='menuVisible' :onload='Initialize' >
       <div id='imCenterBase' class='imCenterHoverBase' :onmouseleave="LeaveBase" :onmouseenter="EnterBase">
@@ -211,6 +211,7 @@ module.exports = {
         <template v-for="b in currentMenuButtons">
           <im-button :button-id="b.id" :button-title="b.title" :button-pos="b.buttonPos" :icon-image="GetButtonIconURL(b)" :button-link="b.shortcut" @click='ClickHandler(b.shortcut)'></im-button>
         </template>
+        <im-cmd-palette></im-cmd-palette>
       </div>
     </div>
     `
