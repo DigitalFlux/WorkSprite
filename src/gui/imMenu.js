@@ -201,13 +201,12 @@ module.exports = {
         width: 401px;
         height: 401px;
         border-radius: 50% 50% 5% 5% ;
-        background-color: hsla(272, 16%, 18%, 0.05);
+        background-color: hsla(272, 16%, 18%, 0.005);
       }`
     ],
     template: `
     <div v-if="drawComponent" id='immediateMenu' class='imMenuBase' v-show='menuVisible' :onload='Initialize' >
       <div id='imCenterBase' class='imCenterHoverBase' :onmouseleave="LeaveBase" :onmouseenter="EnterBase">
-        <im-center-button :button-id="layout.centerButton.id" :button-pos="layout.centerButton.buttonPos" :icon-image="GetButtonIconURL(layout.centerButton)" button-title="WorkSprite" @click="ToggleMenu" ></im-center-button>
         <template v-for="b in currentMenuButtons">
           <im-button :button-id="b.id" :button-title="b.title" :button-pos="b.buttonPos" :icon-image="GetButtonIconURL(b)" :button-link="b.shortcut" @click='ClickHandler(b.shortcut)'></im-button>
         </template>
