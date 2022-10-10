@@ -26,6 +26,14 @@ class WorkSprite {
         this.InitShards();
 
         // Main window and flags
+        this.work_area = {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0
+        };
+        nw.Screen.Init();
+        this.UpdateTotalWorkArea();
         this.mainWin = nw.Window.get();
         this.PrepMainWindowCBs();
         this.firstLoad = true;
@@ -162,29 +170,72 @@ class WorkSprite {
         this.LoadGUIs();
     }
 
+    // This sets up/updates a rect for the total work area encompassing one or more monitors.
+    // You may need to check mouse pos against each screen's rect to be sure you can open the menu without going offscreen in some setups,
+    // if that's what you want...
+    UpdateTotalWorkArea() {
+        this.work_area = {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+            xOffset: 0,
+            yOffset: 0
+        };
+
+        let screens = nw.Screen.screens;
+        screens.sort(function(a, b) {
+            if(a.bounds.x < b.bounds.x) return -1;
+            if(a.bounds.x > b.bounds.x) return 1;
+            return 0;
+        });
+
+        let minX = 0, minY = 0, maxX = 0, maxY = 0;
+        for(let s = 0; s < screens.length; s++) {
+            if(screens[s].work_area.x <= minX) {
+                minX = screens[s].work_area.x;
+            }
+            if(screens[s].work_area.y <= minY) {
+                minY = screens[s].work_area.y;
+            }
+            if(screens[s].work_area.x + screens[s].work_area.width >= maxX) {
+                maxX = screens[s].work_area.x + screens[s].work_area.width;
+            }
+            console.log("width", screens[s]);
+            if((screens[s].work_area.y + screens[s].work_area.height) >= maxY) {
+                maxY = screens[s].work_area.y + screens[s].work_area.height;
+            }
+        }
+        
+        this.work_area.xOffset = Math.abs(minX);
+        this.work_area.yOffset = Math.abs(minY);
+        this.work_area.x = minX;
+        this.work_area.y = minY;
+        this.work_area.width = Math.abs(minX) + maxX;
+        this.work_area.height = Math.abs(minY) + maxY;
+    }
+
     PrepMainWindowCBs() {
         let that = this;
 
+        this.SetMainWindowPosSize();
         this.mainWin.on('loaded', () => {
-            that.SetMainWindowPosSize();
-        
             // Generate GUI components from config
             that.LoadGUIs(nw.WorkSprite.mainWin);
         
             that.firstLoad = false;
         });
-
-        this.mainWin.on('move', (x, y) => { 
-            that.mainWin.moveTo(that.config?.guiOptions?.guiXOffset ?? 0, that.config?.guiOptions?.guiYOffset ?? 0);
-        });
-
-        this.mainWin.on('resize', (w, h) => {
-            that.firstLoad && that.gui.GenerateGUI();
-        });
     }
 
     SetMainWindowPosSize() {
-        this.mainWin.moveTo(this.config.guiOptions?.mainGUIXOffset ?? 0, this.config.guiOptions?.mainGUIYOffset ?? 0);
+        if(this.config.guiOptions?.sizeToMonitors) {
+            console.log(nw.WorkSprite.work_area);
+            this.mainWin.moveTo(nw.WorkSprite.work_area.x, nw.WorkSprite.work_area.y);
+            this.mainWin.resizeTo(nw.WorkSprite.work_area.width, nw.WorkSprite.work_area.height);
+        } else {
+            this.mainWin.moveTo(this.config.guiOptions?.mainGUIXOffset ?? 0, this.config.guiOptions?.mainGUIYOffset ?? 0);
+            this.mainWin.resizeTo(this.config.guiOptions?.mainGUIWidth ?? 1920, this.config.guiOptions?.mainGUIHeight ?? 1000);
+        }
     }
 
     SetShortcuts() {

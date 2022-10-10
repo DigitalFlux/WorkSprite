@@ -14,9 +14,12 @@ module.exports = {
         omniBoxOpen: false,
         curX: 446,
         curY: 710,
+        menuXOffset: -170,
+        menuYOffset: -125,
+        menuPos: 'left: 446px; top: 710px;',
         iconClicked: false,
         isPinned: false,
-        menuVisible: true,
+        menuVisible: false,
         drawComponent: true,
         currentMenuButtons: {}
       }
@@ -118,8 +121,9 @@ module.exports = {
       },
       ShowMenu() {
         nw.WorkSprite.lib['customActions'].exec('getMousePos', [(result) => {
-            this.curX = result[0] - 223;
-            this.curY = result[1] - 120;
+            this.curX = +result[0] + nw.WorkSprite.work_area.xOffset + this.menuXOffset;
+            this.curY = +result[1] + nw.WorkSprite.work_area.yOffset + this.menuYOffset;
+            this.menuPos = `left: ${this.curX}px; top: ${this.curY}px;`
             this.iconClicked = false;
             this.menuVisible = true;
         }]);
@@ -205,7 +209,7 @@ module.exports = {
       }`
     ],
     template: `
-    <div v-if="drawComponent" id='immediateMenu' class='imMenuBase' v-show='menuVisible' :onload='Initialize' >
+    <div v-if="drawComponent" id='immediateMenu' class='imMenuBase' :style='menuPos' v-show='menuVisible' :onload='Initialize' >
       <div id='imCenterBase' class='imCenterHoverBase' :onmouseleave="LeaveBase" :onmouseenter="EnterBase">
         <template v-for="b in currentMenuButtons">
           <im-button :button-id="b.id" :button-title="b.title" :button-pos="b.buttonPos" :icon-image="GetButtonIconURL(b)" :button-link="b.shortcut" @click='ClickHandler(b.shortcut)'></im-button>

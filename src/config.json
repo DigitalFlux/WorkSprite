@@ -36,6 +36,9 @@
 	"guiOptions": {
 		"mainGUIXOffset": 0,
 		"mainGUIYOffset": 0,
+		"mainGUIWidth": 1920,
+		"mainGUIHeight": 1001,
+		"sizeToMonitors": true,
 		"shortcut": "Alt+`",
 		"components": {
 			"im-center-button": {
