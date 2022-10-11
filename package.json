@@ -18,7 +18,7 @@
     "show_in_taskbar": true
   },
   "scripts": {
-    "start": "nw.exe --remote-debugging-port=9222 ./src/"
+    "start": "nw --remote-debugging-port=9222"
   },
   "repository": {
     "type": "git",
@@ -36,5 +36,8 @@
     "open": "^8.4.0",
     "vue": "^3.2.39",
     "windows-shortcuts": "^0.1.6"
+  },
+  "devDependencies": {
+    "nw": "^0.69.1"
   }
 }
