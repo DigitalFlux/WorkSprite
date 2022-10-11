@@ -1,7 +1,6 @@
 exports.bundledActions = [
 	{
 		name: ["testaction1"],
-		argNames: ["int", "float", "bool"],
 		doc: "testaction1:<br>This is an action for just testing stuff. Here, everything is true and nothing is forbidden...",
 		action: () => {
 			console.log("You have tested an action!");
@@ -113,7 +112,6 @@ exports.bundledActions = [
 	},
 	{
 		name: ["open"],
-		argNames: ["string"],
 		doc: "open shortcut|workspace|exe|url in default app",
 		action: (args) => {
 			let name = args[0]?.trim();
@@ -132,7 +130,6 @@ exports.bundledActions = [
 	},
 	{
 		name: ["watchfolder", "folderwatch"],
-		argNames: ["string", "function"],
 		doc: "Watchfolder/folderwatch: <br>Watches a path, and executes callback upon changes in that path.<br>Args: <string> pathname, <function> callback",
 		action: (args) => {
 			if(args[0] && args[2] && typeof args[2] === "function") {
@@ -162,7 +159,6 @@ exports.bundledActions = [
 	},
 	{
 		name: ['getMousePos'],
-		argNames: ["function"],
 		doc: "get the mouse position, and execute an optional callback with the result",
 		action: (args) => {
 			// PS command to get the open windows and return them in an array
@@ -191,7 +187,6 @@ exports.bundledActions = [
 	},
 	{
 		name: ['getOpenApps'],
-		argNames: ["function"],
 		doc: "get the open app names and ids, and execute an optional callback",
 		action: (args) => {
 			// PS command to get the open windows and return them in an array

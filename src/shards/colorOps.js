@@ -1,7 +1,6 @@
 exports.bundledActions = [
 	{
 		name: ["rgbtohex", "rgb2hex"],
-		argNames: [["red", "int"], ["green", "int"], ["blue", "int"]],
 		doc: "rgbtohex(r, g, b): <br>converts rgb triple to hex: 'rgbtohex 255 255 255' returns '0xFFFFFF'",
 		action: (args) => {
 			if(args[0].indexOf("rgb") === 0) {

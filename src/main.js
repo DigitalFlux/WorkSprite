@@ -6,6 +6,7 @@ function tryRequire(module) {
 class WorkSprite {
     constructor() {
         nw.WorkSprite = this;
+        this.firstLoad = true;
 
         // Banner
         this.workSpriteVersion = '0.1.0';
@@ -36,7 +37,6 @@ class WorkSprite {
         this.UpdateTotalWorkArea();
         this.mainWin = nw.Window.get();
         this.PrepMainWindowCBs();
-        this.firstLoad = true;
 
         // Set global shortcuts
         this.SetShortcuts();
@@ -55,7 +55,7 @@ class WorkSprite {
     // since they will get called from various folders, and in places that have been
     // required as well, but with access to this class.
     LoadLibs(libs) {
-        for(let l = 0; l < libs.length; l++) {
+        for(let l in libs) {
             this.LoadLib(libs[l].name, libs[l].member);
         }
     }
@@ -218,16 +218,14 @@ class WorkSprite {
     PrepMainWindowCBs() {
         let that = this;
 
-        this.SetMainWindowPosSize();
+        this.SetMainWindowBounds();
         this.mainWin.on('loaded', () => {
-            // Generate GUI components from config
             that.LoadGUIs(nw.WorkSprite.mainWin);
-        
             that.firstLoad = false;
         });
     }
 
-    SetMainWindowPosSize() {
+    SetMainWindowBounds() {
         if(this.config.guiOptions?.sizeToMonitors) {
             console.log(nw.WorkSprite.work_area);
             this.mainWin.moveTo(nw.WorkSprite.work_area.x, nw.WorkSprite.work_area.y);

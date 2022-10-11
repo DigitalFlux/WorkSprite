@@ -1,22 +1,11 @@
 {
 	"name": "WorkSprite",
-	"configVersion": 0,
 	"coreOptions": {
 		"reloadShortcut": "Ctrl+Alt+R",
 		"quitShortcut": "Ctrl+Alt+Q"
 	},
 	"shardOptions": {
 		"shardPath": "src/shards",
-		"do": {
-			"doPath": "src/do",
-			"noopList": [
-				"::",
-				"//",
-				"/*",
-				"*",
-				"*/"
-			]
-		},
 		"searchEngineCodes": {
 			"default": "sp",
 			"g": "https://www.google.com/search?&q=",
@@ -31,6 +20,16 @@
 			"y": "https://you.com/search?q=",
 			"u": "https://you.com/search?q=",
 			"you": "https://you.com/search?q="
+		},
+		"do": {
+			"doPath": "src/do",
+			"noopList": [
+				"::",
+				"//",
+				"/*",
+				"*",
+				"*/"
+			]
 		}
 	},
 	"guiOptions": {

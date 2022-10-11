@@ -13,7 +13,7 @@ class ActionPack {
         ];
     }
     // Add a new action
-    addAction(opts = { name: null, action: null, force: false, argNames: [] }) {
+    addAction(opts = { name: null, action: null, force: false, argNames: [], doc: "" }) {
         if (!opts.name ||
             opts.name === undefined ||
             opts.name.length === 0 ||
@@ -56,10 +56,7 @@ class ActionPack {
     }
     // Helper function to determine if args passed are asking for help
     isAskingForHelp(args = []) {
-        if (//!args ||
-            //args === undefined ||
-            //args.length === 0 ||
-            args[0] === "?" ||
+        if (args[0] === "?" ||
             args[0] === "-?" ||
             args[0] === "/?" ||
             args[0] === "help" ||
@@ -98,13 +95,6 @@ class ActionPack {
             case 'name':
                 return { error: `No appropriate '${name}' action found...`, result: null };
         }
-    }
-    getActionSig(name) {
-        name = name.split(" ")[0];
-        if(this.actions[name]) {
-            return Object.entries(this.actions[name])[0][0];
-        } else
-            return "";
     }
     getActionArgNames(actionName) {
         if(!this.actions[actionName]) return [""];
