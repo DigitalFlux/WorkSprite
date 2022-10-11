@@ -19,20 +19,11 @@ This project aims at generalizing that tool.
 
 The system is being built to be as flexible and easily extensible as possible for developers to take advantage of.
 <br/><br/>
-## Sweet, how easy is it to use?
-
-WorkSprite is planned to have downloadable builds to be able to just unzip and get on with it, in addition to this repo.
-<br/><br/>
-### Download a build
-
-- TBD
-<br/><br/>
 ### For developing and extending it even further
-
-Get the repo, then `npm install` it. Running `npm start` will start it up. It runs on NWJS production, so you might want to fiddle if you want the sdk flavor.
+---
+Get the repo, then `npm install` it. Running `npm start` will start it up, and then hit the default shortcut of "Alt+`" (Alt + backtick) to toggle the menu. It runs on NWJS production, so you might want to fiddle if you want the sdk flavor.
 
 NOTE: With the SDK flavor of NWJS, there's a bug where if you open the dev tools and the disconnect from them, the transparent portion of the screen will go white, and you'll be unable to click-through. For an app like this, that would suck, as you'd find your screen covered. This is why builds are non-SDK only. When I'm fiddling with parts that may cause this (like examining the GUI in dev tools), I usually shorten the height to ensure the taskbar is accessible or set the `always_on_top` in the package.json file to `false` so I can alt-tab to Task Manager, if the reload/quit shortcuts no longer work. I've tried to avoid SDK flavor so that this wasn't an issue, but it's been around in NWJS so long I have to put the warning up.
-  
 <br/><br/>
 ### How the Config file works
 ---
