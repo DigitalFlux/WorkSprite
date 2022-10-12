@@ -2,7 +2,7 @@
 
 ![GitHub issues](https://img.shields.io/github/issues/DigitalFlux/WorkSprite) ![GitHub](https://img.shields.io/github/license/DigitalFlux/WorkSprite)
 
-<br/><br/>
+<br/>
 ## What's it for?
 ---
 WorkSprite is an NWJS-based app that groups commonly-used links and functionality into a small, extensible, quick-access menu system.
