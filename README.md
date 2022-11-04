@@ -16,6 +16,11 @@ This project aims at generalizing that tool.
 - A shortcut-driven quick-access menu that appears where your mouse cursor is. In that menu, you have a number of buttons to launch your most frequently-used apps. Using VueJS and the config files, you can also completely customize the GUI to do whatever you like.
 - In addition to the menu buttons, there is a Command Palette that exposes an extensible library of command "shards" written in JS. You can add your own functions to this library as well, extending what WorkSprite can do for you.
 - A scripting system that allows you to compile simple lists of functions you use in the Command Palette, and execute them via a "do" command. Do scripts are, like shards, written and dropped into their folders and called upon when needed.
+<br/>
+This is my setup using this repo:
+<br/><br/>
+<img align="center" alt="screenshot of worksprite with my own menu icons filled in" src="http://www.bablbrain.com/images/worksprite/worksprite01.png" width="400" height="228" />
+<br/>
 
 The system is being built to be as flexible and easily extensible as possible for developers to take advantage of.
 <br/><br/>
